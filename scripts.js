@@ -10,6 +10,15 @@ function getAll(){
 	  	data = response;
 	  	populatingDOM();
 	});
+	$(document).ajaxError(function(event, request, settings) {
+		console.log(request);
+		var errorMessage = `
+		<h1>${request.status}  ${request.statusText} sorry </h1>
+		<a target='_blank' href='${request.responseJSON.documentation_url}'>
+		for more info click here</a>`;
+		$("#profile").empty().append(errorMessage);
+		hideElement('loader','wrapper');
+	});	
 }
 
 function getRepos(){

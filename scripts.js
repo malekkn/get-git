@@ -8,7 +8,8 @@ function getAll(){
 	})
 	.done(function(response) {
 	  	data = response;
-	  	populatingDOM();
+	  	setTimeout(function() { populatingDOM(); }, 2000);
+	  	
 	});
 	$(document).ajaxError(function(event, request, settings) {
 		console.log(request);
@@ -17,7 +18,7 @@ function getAll(){
 		<a target='_blank' href='${request.responseJSON.documentation_url}'>
 		for more info click here</a>`;
 		$("#profile").empty().append(errorMessage);
-		hideElement('loader','wrapper');
+		hideElement("loader","wrapper");
 	});	
 }
 
@@ -47,7 +48,7 @@ function populatingDOM () {
 		<a target='_blank' href='https://api.adorable.io/avatars/200/${userName}.png'>
 		<img src='https://api.adorable.io/avatars/200/${userName}.png' img>
 		</a>`;
-	hideElement('loader','wrapper');
+	hideElement("loader","wrapper");
 	$("#profile").empty().append(image,info,altImage);
   	getRepos();
   	console.log(data);
@@ -63,9 +64,11 @@ function writeNames(){
 }
 //------------------------------gets the user input ------------------------------
 function getUserName() {
-  userName = document.getElementById("userInput").value;
-   getAll();
-   showElement('loader','wrapper');
+	userName = document.getElementById("userInput").value;
+	$("#profile").empty();
+	showElement("loader","wrapper");
+	getAll();
+	
 }
 //----------------------------loader functions----------------------------
 function hideElement (x,y) {
